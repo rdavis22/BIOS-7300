@@ -2,7 +2,7 @@ library(easypackages)
 libraries("survival", "km.ci", "muhaz", "fmsb")
 library(KMsurv)
 library(OIsurv)
-hw2data<-read.table(file="/Users/Rick/Documents/Tulane/MPH/BIOS 7300/Homeworks/hw2/Survival times of patients with gastric cancer.txt", header=T, sep="")
+hw2data<-read.table(file=file.choose(), header=T, sep="") #read in gastric cancer survival data
 attach(hw2data)
 
 #####Survival curve plotting#####
@@ -26,10 +26,10 @@ legend(150, 0.9, c("Nelson-Aalen", "Kaplan-Meier"), pch=c(1, 3), col=c(2,4))
 
 ##Confidence Bands##
 #library(km.ci)
-#hw2data1<-hw2data
+hw2data1<-hw2data
 #cba <- survfit(coxph(Surv(time, status)~1), hw2data1)
-#cbb <- survfit(Surv(time, status)~1, hw2data1)
-#KMcb<-km.ci(cbb, conf.level = 0.95, method="hall-wellner")
+cbb <- survfit(Surv(time, status)~1, hw2data1)
+KMcb<-km.ci(cbb, conf.level = 0.95, method="hall-wellner")
 
 ##Epanechnikov Smoothed Hazard Function##
 #<-density(b$surv, bw=20, adjust=1, kernel="epanechnikov") #KM smoothed hazard function
