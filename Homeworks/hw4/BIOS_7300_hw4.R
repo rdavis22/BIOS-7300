@@ -16,6 +16,10 @@ chk_model_1<-cox.zph(model_1) #check assumption of proportional hazards
 
 #Part b-additive model#
 model_2<-coxph(Surv(time, status)~agecat+gender, data=hw4data, method="breslow")
+#The overall model
+#library(aod)
+#l=matrix(c(1,0,0,1),2,byrow=T)
+#wald.test(b = coef(model_2), Sigma = vcov(model_2), L=l)
 #summar(model_2)
 
 #Part d-variate model#
