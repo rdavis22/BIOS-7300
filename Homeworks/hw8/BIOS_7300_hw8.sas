@@ -25,3 +25,17 @@ proc lifereg data=hw8_2;
 model time*status(0)=/distribution=weibull;
 probplot;
 run;
+
+/*****Q3*****/
+/**Q3, parts A-C: Get the Weibull hazards model**/
+proc lifereg data=hw8;
+/*put the "Treatment variable into the class statement to make categorical*/
+class Treatment;
+model time*status(0)=Treatment/distribution=exponential;
+probplot;
+run;
+proc lifereg data=hw8;
+class Treatment;
+model time*status(0)=Treatment/distribution=weibull;
+probplot;
+run;
