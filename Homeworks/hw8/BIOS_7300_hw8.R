@@ -4,6 +4,8 @@ if(!require(survival))
   install.packages(("survival"))
 if(!require(KMsurv))
   install.packages(("KMsurv"))
+if(!require(flexsurv))
+  install.packages(("flexsurv"))
 
 #read in hw8 data
 #hw8.data<-read_table(file=file.choose(), col_names = T)
@@ -89,10 +91,34 @@ p.q2<-ggplot(data=hw8q2plot.data, aes(x=logSurvTime.hw8q2, y=logLogSurvEst.hw8q2
   labs(title="Checking fit for Weibull distribution for Placebo Only",
        x="log(time)", y="loglog Survival Estimate")
 
-##Q2, Part B; Fit data to weibull distribution##
+##Q2, Part B; Fit data to weibull distribution and get median survival time##
 #get intercept and shape
 fit_weib.q2<-survreg(Surv(time, status)~1,
                  data=hw8q2.data, dist="weibull")
 #get Weibull shape and weibull scale
 fit_weib_2.q2<-flexsurvreg(Surv(time,status)~1,
                            data=hw8q2.data, dist="weibull")
+#get sigma(ti)
+sigma_t.q2<-sum(hw8q2.data$time)
+
+#get number of failures
+r.q2=sum(hw8q2.data$status)
+
+#get lambda_hat
+lambda_hat.q2<-r.q2/sigma_t.q2
+
+#get median survival time
+t_50.q2<-1/lambda_hat.q2*log(2)
+
+#get SE and 95% CI for t_50
+se_t_50.q2<-t_50.q2/sqrt(r.q2)
+CI_95_t_50.q2<-c(t_50.q2-1.96*se_t_50.q2, t_50.q2+1.96*se_t_50.q2)
+
+####Hw8,Q3####
+##Q3, Part A; Weibull hazards model##
+#get intercept and shape
+fit_weib.q3<-survreg(Surv(time, status)~factor(Treatment),
+                     data=hw8.data, dist="weibull")
+#get Weibull shape and weibull scale
+fit_weib_2.q3<-flexsurvreg(Surv(time,status)~factor(Treatment),
+                           data=hw8.data, dist="weibull")
