@@ -8,7 +8,7 @@ if(!require(flexsurv))
   install.packages(("flexsurv"))
 
 #read in hw8 data
-#hw8.data<-read_table(file=file.choose(), col_names = T)
+hw8.data<-read_table(file=file.choose(), col_names = T)
 
 ####Hw 8, Q1####
 ##Q1 Part a) graphical examination to see if exponential distribution fits##
