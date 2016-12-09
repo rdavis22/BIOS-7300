@@ -43,3 +43,11 @@ lr_test<-survdiff(Surv(time, status)~treat)
 ####Q2####
 employment<-relevel(employment, "other")
 q2.coxph<-coxph(Surv(time, status)~treat+employment)
+
+####Q3: Model selection####
+#*Do forward and backward selection at some point
+
+####Q4: Weibull model####
+##part D: Comparing difference across employment groups, holding treatment constant
+q4.weib<-flexsurvreg(Surv(time, status)~treat+employment,
+                 dist="exponential")
